@@ -1,4 +1,4 @@
-# import ticket
+import ticket
 
 people = int(input("몇 명? "))
 ages = list()
@@ -8,4 +8,5 @@ for person in range(people):
     age = int(input("나이 ? "))
     ages.append(age)
 
-print(ages)
+print(f"총 요금은 {ticket.entrance_fee(ages)}원 입니다.")
+# print(ages)
