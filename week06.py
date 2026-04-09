@@ -1,5 +1,6 @@
 import numpy as np
 
+# 1) 넘파이 배열 생성
 l1 = [1, 2, 3]
 array01 = np.array(l1)
 print(l1)   
@@ -23,3 +24,13 @@ print(array06)
 
 array07 = np.linspace(0, 10, 3) # 0~10 사이를 균등하게 3개로 나누기
 print(array07)
+
+# 2) 넘파이 배열 속성
+array08 = np.random.random((4, 2))
+print(array08)
+
+# shape는 모양(지금은 (4, 2) 출력), dtype은 들어간 값의 타입, ndim은 차원, size는 원소 개수
+print(array08.shape, array08.dtype, array08.ndim, array08.size)
+
+# 08의 전치 행렬을 의미한다. 2행 4열로 출력된다.
+print(array08.T)
