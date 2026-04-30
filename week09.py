@@ -58,8 +58,8 @@ arr2d = np.array([
 # 04. Subsets(부분 집합) - rows and columns
 # 원하는 범위 지정이다.
 
-df_dict = pd.DataFrame({'국': [1, 6, 7], '영': [2, 4, 8], '수': [3, 5, 9], '화': [10, 3, 1]}, index=[1, 2, 3])
-print(df_dict)
+# df_dict = pd.DataFrame({'국': [1, 6, 7], '영': [2, 4, 8], '수': [3, 5, 9], '화': [10, 3, 1]}, index=[1, 2, 3])
+# print(df_dict)
 
 # iloc (index 기준)
 # df_new = df_dict.iloc[1:3] # 원본의 컬럼에서 두번째와 세번째 행만 가져온다. ([1:]도 가능)
@@ -69,5 +69,24 @@ print(df_dict)
 
 # loc (라벨 기준)
 # df_new = df_dict.loc[:, '영':'화'] # 이건 영어, 수학, 화학 포함
-df_new = df_dict.loc[df_dict['국'] > 5, ['영', '화']] # 국어 성적 5점 초과인 사람의 '영', '화' 데이터만 출력
-print(df_new)
+# df_new = df_dict.loc[df_dict['국'] > 5, ['영', '화']] # 국어 성적 5점 초과인 사람의 '영', '화' 데이터만 출력
+# print(df_new)
+
+# 스칼라 값 / 특정 값 하나만 가져오기
+# iat (index 기준)
+# print(df_dict.iat[1, 2]) # 1열 2행 값 가져오기
+
+# # at (라벨 기준)
+# print(df_dict.at[2, '수'])
+
+
+# 05. Subsets Observations - rows(행)
+df_dict = pd.DataFrame({'국': [1, 6, 7], '영': [2, 4, 8], '수': [3, 5, 9], '화': [10, 3, 1]}, index=[1, 2, 3])
+print(df_dict)
+
+# print(df_dict.sample(frac=0.33)) # 랜덤한 행을 샘플링(%)해서 출력 (0.5면 절반만 / 근데 3행 뿐이라 절반 안되니 0.33 / 이거 이해 안되니 복습)
+print(df_dict.sample(n=2)) # 행 랜덤으로 n개 가져오기
+# print(df_dict.nlargest(2, '화')) # 화학 상위 2명 행 추출
+# print(df_dict.nsmallest(2, '화')) # 화학 하위 2명 행 추출
+# print(df_dict.head(2)) # 1~n 행 가져오기
+# print(df_dict.tail(2)) # 마지막에서 n개 행 가져오기
