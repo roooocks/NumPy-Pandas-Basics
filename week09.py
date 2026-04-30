@@ -60,6 +60,14 @@ arr2d = np.array([
 
 df_dict = pd.DataFrame({'국': [1, 6, 7], '영': [2, 4, 8], '수': [3, 5, 9], '화': [10, 3, 1]}, index=[1, 2, 3])
 print(df_dict)
-# df_new = df_dict.iloc[1:3] # 원본의 컬럼에서 두번째와 세번째만 가져온다. ([1:]도 가능)
-df_new = df_dict.iloc[1:3, 2:4]
+
+# iloc (index 기준)
+# df_new = df_dict.iloc[1:3] # 원본의 컬럼에서 두번째와 세번째 행만 가져온다. ([1:]도 가능)
+# df_new = df_dict.iloc[1:3, 2:4] # 원본의 컬럼에서 2~3번째 행만 가져오고 거기서 세번째~네번째 열만 추가로 잘라서 가져온다. 라벨 이름보고 작업하는 놈이다.
+# df_new = df_dict.iloc[0:, [1, 3]] # 이거 [0, [1:4:2]]도가 능하다.
+# print(df_new)
+
+# loc (라벨 기준)
+# df_new = df_dict.loc[:, '영':'화'] # 이건 영어, 수학, 화학 포함
+df_new = df_dict.loc[df_dict['국'] > 5, ['영', '화']] # 국어 성적 5점 초과인 사람의 '영', '화' 데이터만 출력
 print(df_new)
