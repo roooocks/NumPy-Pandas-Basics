@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import seaborn as sns
 
 # 1. Subset Variables - columns
 
@@ -40,8 +41,8 @@ import pandas as pd
 
 # 6. Summarize Data
 # describe(표준편차, 분산 등), info(결치값 개수, 행/열 몇개 등)를 많이 쓴다.
-df = pd.DataFrame({'국': [1, 6, 7], '영': [2, 4, 8], '수': [3, 5, 9], '화': [10, 3, 1]}, index=[1, 2, 3])
-print(df)
+# df = pd.DataFrame({'국': [1, 6, 7], '영': [2, 4, 8], '수': [3, 5, 9], '화': [10, 3, 1]}, index=[1, 2, 3])
+# print(df)
 # print(df.describe())
 # print(df.info())
 
@@ -49,4 +50,52 @@ print(df)
 # print(len(df))
 # print(df.shape) # 몇행 몇열?
 # print(df['국'].nunique()) # columns 몇개 있음?
-print(df.dtypes) # int64, str 등의 행의 타입이 나온다.
+# print(df.dtypes) # int64, str 등의 행의 타입이 나온다.
+
+# 데이터의 특정 비율 위치 값 계산 함수
+# 기본은 50%이며 0.75(75%), 0.25(25%) 같은 방식으로 수치 조절 가능
+# 10 20 30 40 50 <= 기준으로 본다면 0.75는 40, 0.25는 20 출력
+# 이상치 탐구에도 많이 쓴다고 한다
+# print(df.quantile()) 
+
+# apply 사용 방법 1
+# 지금의 방식은 값마다 제곱한 값을 리턴한다.
+# def square(x):
+#     return x * x
+# print(df.apply(square)) # 이걸 고차 함수라고 부른다.
+
+# apply 사용 방법 2
+# 람다 방식이다. 일회용 함수라고 보면 된다.
+# print(df.apply(lambda n: n * n))
+
+
+
+# 7. Handling Missing Data
+mpg = sns.load_dataset('mpg')
+
+# print(mpg.describe())
+# print(mpg.value_counts('cylinders')) # 기통별 개수
+print(mpg[mpg['horsepower'].isnull()], '\n') # null값인 행들만 출력
+
+# 기통별 마력들의 중앙값을 구해서 결측치를 채운다.
+mpg['horsepower'] = mpg['horsepower'].fillna(
+    mpg.groupby('cylinders')['horsepower'].transform('median')
+)
+print(mpg.info(), '\n')
+print(mpg[mpg['horsepower'].isnull()]) # 이제는 중앙값으로 채웠으므로 Empty DataFrame가 나온다.
+
+# horsepower 컬럼에 일부 결측치 존재
+# horsepower는 연비(mpg)와 음의 상관관계를 가지는 중요한 변수
+# 수치형 변수라서 mean보다 median이 outlier(이상치)에 덜 민감하다.
+
+# print(mpg.dropna())  # 결측치가 포함된 행 제거
+# print(mpg.fillna(value))  # 평균, 중앙값 등으로 결측치 대체 가능
+
+# 현재 결측치 비율이 2% 미만이므로 행 삭제(dropna)만으로도
+# 전체 데이터 분석 결과에는 큰 영향이 없을 가능성이 높다.
+
+# 다만 임의의 평균값 대체는 데이터 분포를 왜곡할 수 있으므로 주의가 필요하다.
+
+# 만약 결측치 보존이 중요하다면,
+# cylinders(기통 수) 기준으로 그룹화하여 중앙값으로 대체하는 방법이 더 안정적일 수 있다.
+# => 같은 특성을 가진 차량끼리 값을 보정하므로 노이즈를 줄일 수 있음
