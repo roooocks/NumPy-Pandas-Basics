@@ -1,5 +1,9 @@
 import pandas as pd
+# 파이썬 기본 그래픽을 사용한다고...
 import seaborn as sns
+# 파이썬의 기본 그래픽 라이브러리 담당
+# import matplotlib.pyplot as plt
+
 
 # 1. 10주차 일부 복습
 mpg = sns.load_dataset('mpg')
@@ -12,20 +16,32 @@ mpg = sns.load_dataset('mpg')
 
 
 
-# 2. exercise 데이터 시트 연습
+# 2. exercise 데이터 시트에서 필요한 정보들 취합
 ex = sns.load_dataset('exercise')
 
 # print(ex.head(10))
 # print(ex.info())
 
-# print(ex['kind'].value_counts()) # 3가지 30개
-# print(ex['time'].value_counts()) # 3가지 30개
-# print(ex['diet'].value_counts()) # 2가지 45개
+# print(ex['kind'].value_counts()) # 3가지 30개 (reset, walking, running)
+# print(ex['time'].value_counts()) # 3가지 30개 (10min, 50min, 30min)
+# print(ex['diet'].value_counts()) # 2가지 45개 ()
+
+# 아래 자료를 no fat으로 보면 맨 아래 9개의 자료는 시간 대비 심박수의 변동폭이 크다.
+# 반대로 law fat은 반대다.
+# print(len(ex[ex['diet'] == 'low fat'])) # 그냥 쓰면 개수 짤려서 못센다.
+# print(ex[ex['diet'] == 'low fat'])
 
 
 
-# 3.
+# 3. exercise 데이터 시트 정제 시각화 (그래프)
+running_df = ex[ex['kind'] == 'running'] # reset, walking, running
+# print(running_df)
 
+# GUI 그래프
+# 그래프를 보면 알겠지만 30분 때는 심박수가 겹치지 않고 무지방은 심박수가 130 미만이 없다.
+# 또한 15분때는 저지방 참가자들의 심박수가 엄청나게 폭이 크고 반대로 30분 때는 안정화가 된 상태다.
+# sns.catplot(data=running_df, x='time', y='pulse', hue='diet', kind='point') # 식단별로 시간당 심박수를 point 형태로 본다.
+# plt.show()
 
 
 # 4.
