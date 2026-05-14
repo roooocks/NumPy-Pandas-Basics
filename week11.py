@@ -1,12 +1,11 @@
 import pandas as pd
 # 파이썬 기본 그래픽을 사용한다고...
 import seaborn as sns
-# 파이썬의 기본 그래픽 라이브러리 담당
 # import matplotlib.pyplot as plt
 
 
 # 1. 10주차 일부 복습
-mpg = sns.load_dataset('mpg')
+# mpg = sns.load_dataset('mpg')
 # print(mpg['model_year'].value_counts().sort_values(ascending=False))
 # print(mpg.sort_values('model_year', ascending=False)) # mpg로 하면 연비가 높은 차량부터 나온다.
 
@@ -33,8 +32,8 @@ ex = sns.load_dataset('exercise')
 
 
 
-# 3. exercise 데이터 시트 정제 시각화 (그래프)
-running_df = ex[ex['kind'] == 'running'] # reset, walking, running
+# 3. exercise 데이터 시트 정제 후 시각화 (그래프)
+# running_df = ex[ex['kind'] == 'running'] # reset, walking, running
 # print(running_df)
 
 # GUI 그래프
@@ -44,8 +43,19 @@ running_df = ex[ex['kind'] == 'running'] # reset, walking, running
 # plt.show()
 
 
-# 4.
 
+# 4. exercise 데이터 시트 정제
+# 조건은 "저지방 & 30분 & 러닝"으로 "심박수 평균"
+# 3번의 그래프 시각화와 같이 보면 좋다. 실제로도 110 조금 위를 가리킨다.
+ex = ex[
+    (ex['diet'] == 'low fat') &
+    (ex['time'] == '30 min') &
+    (ex['kind'] == 'running')
+]
+print(ex)
+
+mean_pulse = ex['pulse'].mean()
+print(mean_pulse)
 
 
 # 5. 
