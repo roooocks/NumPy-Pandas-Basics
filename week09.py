@@ -22,6 +22,9 @@ arr2d = np.array([
 # print(df_dict)
 
 
+# Reshaping Data 전부 해보기 (5월 14일)
+
+
 # 03. 메소드 체이닝(Using query 포함)
 # ClassName().setName("kim").setAge(30).setJob("doctor")... 방식을 쓰는 경우가 메소드 체이닝이다.
 # df_new = pd.melt(df_dict) # 첫번째 방식

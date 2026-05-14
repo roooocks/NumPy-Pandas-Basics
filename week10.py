@@ -128,18 +128,18 @@ import seaborn as sns
 # print(df['국'].value_counts()) # 값별 개수 세기. 만약 국을 7 6 7로 바꾸면 국의 7이 2개가 된다.
 # print(len(df)) # 행 개수 확인. 여기선 3만 나옴
 # print(df.shape) # 몇행 몇열? (3, 4)
-# print(df['국'].nunique()) # 고유값 개수. columns 몇개 있음?
+# print(df['국'].nunique()) # 고유값 개수. columns 몇개 있음? (중복값 제거)
 # print(df.dtypes) # int64, str 등의 컬럼의 자료형이 나온다.
 
 # describe(표준편차, 분산 등), info(결치값 개수, 행/열 몇개 등)를 많이 쓴다.
 # 용어들이 너무 어려워서 길게 설명한다.
-# 기초 통계(량) 요약 
+# 기초 통계(량) 요약 (수치로) 
 # print(df.describe())
 #  - count(개수)
 #  - mean(평균)
 #  - std(표준편차) => 데이터가 평균으로부터 얼마나 멀리 흩어져 있는지(변동성)를 나타내는 지표, 이 값이 클수록 데이터의 격차가 크고 들쭉날쭉
 #  - min => 컬럼에서 가장 작은 값
-#  - 25%(1사분위수, Q1) => 데이터를 크기순으로 정렬했을 때, 하위 25% 위치에 있는 값 / 예: 100명 중 뒤에서 25등의 성적입니다.
+#  - 25%(1사분위수, Q1) => 데이터를 크기순으로 정렬했을 때, 하위 25% 위치에 있는 값 / 예: 100명 중 뒤에서 25등의 성적
 #  - 50%(2사분위수, 중앙값, median) => 위와 같은데 정중앙(50%) 위치에 있는 값 / mean과 다르게 극단적인 값(큰, 작은)에 영향을 받지 않는다.
 #  - 75%(3사분위수, Q3) => 위와 같은데 하위 75%(즉, 상위 25%) 위치에 있는 값
 #  - max => 컬럼에서 가장 큰 값
@@ -154,7 +154,7 @@ import seaborn as sns
 #  - Dtype : 컬럼의 자료형
 # - 맨 아래
 #  - dtypes : 자료형 요약으로 그냥 자료형의 종류 및 개수 출력
-#  - memory usage : 이 데이터프레임이 현재 컴퓨터 메모리(RAM)를 얼마나 차지하고 있는지 보여줍
+#  - memory usage : 이 데이터프레임이 현재 컴퓨터 메모리(RAM)를 얼마나 차지하고 있는지 보여줌
 
 # print(df.memory_usage()) # 메모리 사용량 확인(인덱스별 사용량)
 # print(df.dtypes) # 컬럼 자료형 확인
@@ -220,7 +220,7 @@ mpg = sns.load_dataset('mpg')
 # print(mpg.value_counts('cylinders')) # 기통별 개수
 # print(mpg[mpg['horsepower'].isnull()], '\n') # null값인 행들만 출력
 
-# 기통별 마력들의 중앙값을 구해서 결측치를 채운다.
+# 기통별 마력들의 중앙값을 구해서 결측치를 채운다. (기통수가 낮을수록 연비가 좋다는 음의 상관 관계가 있다. 절대적인건 아니다.)
 # 이때 원본이 가진 단일 요소별로 함수에 대한 값을 채우는 역할을 transform이 해준다. 원본이 아닌 groupby의 축약본을 따르는 agg랑은 또다른 요소
 # mpg['horsepower'] = mpg['horsepower'].fillna(
 #     mpg.groupby('cylinders')['horsepower'].transform('median')
